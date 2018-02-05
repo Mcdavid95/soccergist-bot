@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 // Webhook Validation
+
 app.get('/webhook', (req, res) => {
     if (req.query['hub.mode'] === 'subscribe' &&
         req.query['hub.verify_token'] == (process.env.VERIFY_TOKEN) ) {
@@ -24,15 +25,20 @@ app.get('/webhook', (req, res) => {
 app.post('/webhook', (req, res) => {
         const senderId =  req.body.entry[0].messaging[0].sender.id;
         const senderMessage = req.body.entry[0].messaging[0].message.text;
-        res.status(201).send({
+        const response = {
             "recipient": {
                 "id": senderId
             },
             "message": {
                 "text": `I have received your message: "${senderMessage}", and I've sent it to my Oga at the top: Oscar`
             }
+        };
+        res.status(201).json(response);
+        app.post('https://graph.facebook.com/v2.6/me/messages?access_token=EAAME7WZB9EGkBAAOJbGkBVk8pG5Go8SDRZAMalczrejHTb3H8eVR78hor7I1MCdBvabRAGI9LkjiSX1pjZBgfX6gZAKbjkhjQAOVZA2hSuE96kZAHnAcvlDhDugRO6ZAlN2ycEl0n0z9So4ZBjLOIFg7Lc6uOVXkeDHXjwGLtgqb6AZDZD', (req=response, res) => {
+            res.status(201);
         })
 })
+
 
 const server = app.listen(process.env.PORT || 3000, () => {
     console.log(`Listening on port ${server.address().port}`);
