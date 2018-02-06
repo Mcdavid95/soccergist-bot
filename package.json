@@ -10,7 +10,8 @@
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
-    "ngrok": "^2.2.25"
+    "ngrok": "^2.2.25",
+    "request": "^2.83.0"
   },
   "devDependencies": {},
   "scripts": {
