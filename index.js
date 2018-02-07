@@ -47,18 +47,18 @@ const handleFeedback = (message) => {
                         {
                             "type":"postback", 
                             "title":"View match schedules",
-                            "payload":"match-schedules-postback"
+                            "payload":"match schedules"
                             
                         },
                         {
                             "type":"postback",
                             "title":"View Highlights",
-                            "payload":"league-highlights-postback"
+                            "payload":"league highlights"
                         }, 
                         {
                             "type":"postback",
                             "title":"View league table",
-                            "payload":"league-table-postback"
+                            "payload":"league table"
                         }
                     ]
                 }
