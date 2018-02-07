@@ -78,33 +78,7 @@ const sendTextMessage = (recipientId, messageFeedback) => {
       recipient: {
         id: recipientId
       },
-      message: {
-		"attachment":{
-			"type":"template",
-			"payload":{
-				"template_type":"button",
-				"text":"What do you want to do?",
-				"buttons":[
-					{
-						"type":"postback", 
-						"title":"View match schedules",
-						"payload":"match-schedules-postback"
-						
-					},
-					{
-						"type":"postback",
-						"title":"View Highlights",
-						"payload":"league-highlights-postback"
-					}, 
-					{
-						"type":"postback",
-						"title":"View league table",
-						"payload":"league-table-postback"
-					}
-				]
-			}
-		}
-	}
+      message: messageFeedback
     };
 
     // We send off the response to FB
