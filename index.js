@@ -34,6 +34,7 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200) // Then we tell Facebook all went well        
 })
 
+// handle message type
 const handleFeedback = (message) => {
     let responseFeedback;
     if("message" in message) {
