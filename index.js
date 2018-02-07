@@ -24,13 +24,18 @@ app.get('/webhook', (req, res) => {
 });
 
 app.post('/webhook', (req, res) => {
-    let responseFeedback;
     const senderId =  req.body.entry[0].messaging[0].sender.id;
 
     // message object
-    message = req.body.entry[0].messaging[0];
+    const message = req.body.entry[0].messaging[0];
     // So here we've got the request i.e req
 
+    sendTextMessage(senderId, handleFeedback(message)) // Here we prepare and send off the response we want our bot to give the sender
+    res.sendStatus(200) // Then we tell Facebook all went well        
+})
+
+const handleFeedback = (message) => {
+    let responseFeedback;
     if("message" in message) {
         responseFeedback = {
             "attachment":{
@@ -64,10 +69,8 @@ app.post('/webhook', (req, res) => {
             text: `${message.postback.payload} - is coming soon.`
         };
     }
-
-    sendTextMessage(senderId, responseFeedback) // Here we prepare and send off the response we want our bot to give the sender
-    res.sendStatus(200) // Then we tell Facebook all went well        
-})
+    return responseFeedback;
+}
 
 const sendTextMessage = (recipientId, messageFeedback) => {
     // we package the bot response in FB required format
