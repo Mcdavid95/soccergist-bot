@@ -62,6 +62,7 @@ export const handleFeedback = (message) => {
             if(error) {
               return { error }
             } else {
+                console.log(body)
               standings = body.standing.slice(0, 4);
                 responseFeedback = {
                     "attachment": {
