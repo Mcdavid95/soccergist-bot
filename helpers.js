@@ -52,7 +52,7 @@ export const handleFeedback = (message) => {
               }
           }
       };
-  } else if ('postback' in message) {
+  } else if ("postback" in message) {
       switch(message.postback.payload) {
         case 'league table':
           request({
@@ -70,7 +70,7 @@ export const handleFeedback = (message) => {
                         "payload": {
                           "template_type": "list",
                           "top_element_style": "compact",
-                          "elements": handleFeedback(standings)
+                          "elements": handleTeamList(standings)
                         }
                 }
             }
