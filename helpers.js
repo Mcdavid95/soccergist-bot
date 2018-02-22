@@ -24,7 +24,7 @@ const handleTeamList = (teams) => {
 
 // handle message type
 export const handleFeedback = (message) => {
-  var responseFeedback, standings, teams;
+  let responseFeedback, standings, teams;
   if("message" in message) {
       responseFeedback = {
           "attachment":{
@@ -53,42 +53,42 @@ export const handleFeedback = (message) => {
               }
           }
       };
-  } else if ("postback" in message && message.postback.payload === 'league table') {
+  } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
-        axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+      if(message.postback.payload === 'league table') {
+          axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
             .then((response) => {
-                console.log("went so well", typeof(response.data), "===>", response.data)
-                if(response) {
-                    standings = response.data.standing.slice(0, 4);
-                        responseFeedback = {
-                            "attachment": {
-                                "type": "template",
-                                "payload": {
-                                "template_type": "list",
-                                "top_element_style": "compact",
-                                "elements": handleTeamList(standings)
-                                }
-                            }
-                        };
-                        console.log("I got here first", responseFeedback)
-                }
+                standings = response.data.standing.slice(0, 4);
+                  responseFeedback = {
+                      "attachment": {
+                          "type": "template",
+                          "payload": {
+                            "template_type": "list",
+                            "top_element_style": "compact",
+                            "elements": handleTeamList(standings)
+                          }
+                      }
+                  }
             })
             .catch((error) => {
-                console.log("went so meeeeeeh", error)
                 return { error }
             });
-    }
-  console.log("I got here", responseFeedback)
+        } else {
+            responseFeedback = {
+                text: `${message.postback.payload} - is coming soon.`
+            };
+        }
+  }
   return responseFeedback;
 };
 
 export const sendTextMessage = (recipientId, messageFeedback) => {
     // we package the bot response in FB required format
     const messageData = {
-      recipient: {
-        id: recipientId
+      "recipient": {
+        "id": recipientId
       },
-      message: messageFeedback
+      "message": messageFeedback
     };
 
     // We send off the response to FB
