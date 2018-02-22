@@ -69,8 +69,10 @@ export const handleFeedback = (message) => {
                           }
                       }
                   }
+                  return responseFeedback
             })
             .catch((error) => {
+                console.log(error)
                 return { error }
             });
         } else {
@@ -78,6 +80,7 @@ export const handleFeedback = (message) => {
                 text: `${message.postback.payload} - is coming soon.`
             };
         }
+    return responseFeedback
   }
   return responseFeedback;
 };
