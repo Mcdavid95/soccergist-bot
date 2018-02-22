@@ -58,7 +58,7 @@ export const handleFeedback = (message) => {
       if(message.postback.payload === 'league table') {
           axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
             .then((response) => {
-                standings = JSON.parse(body).standing.slice(0, 4);
+                standings = JSON.parse(response.data).standing.slice(0, 4);
                   responseFeedback = {
                       "attachment": {
                           "type": "template",
