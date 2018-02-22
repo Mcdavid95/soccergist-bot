@@ -76,6 +76,7 @@ export const handleFeedback = (message) => {
                 }
             }
           })
+          break;
         default:
         responseFeedback = {
             text: `${message.postback.payload} - is coming soon.`
