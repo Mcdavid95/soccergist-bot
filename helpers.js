@@ -72,14 +72,14 @@ export const handleFeedback = (message) => {
                           "top_element_style": "compact",
                           "elements": handleTeamList(standings)
                         }
+                    }
                 }
             }
-        }
           })
-          default:
-          responseFeedback = {
-              text: `${message.postback.payload} - is coming soon.`
-          };
+        default:
+        responseFeedback = {
+            text: `${message.postback.payload} - is coming soon.`
+        };
       }
   }
   return responseFeedback;
@@ -95,7 +95,7 @@ export const sendTextMessage = (recipientId, messageFeedback) => {
     };
 
     // We send off the response to FB
-    request({
+    return request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
         method: 'POST',
