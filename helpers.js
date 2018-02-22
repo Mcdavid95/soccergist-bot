@@ -63,7 +63,7 @@ export const handleFeedback = (message) => {
               return { error }
             } else {
                 console.log("body =>>>", typeof(body))
-              standings = JSON.stringify(body).standing.slice(0, 4);
+              standings = JSON.parse(body).standing.slice(0, 4);
               console.log("standing =>>>", typeof(standings))
                 responseFeedback = {
                     "attachment": {
