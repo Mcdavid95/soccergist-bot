@@ -62,8 +62,8 @@ export const handleFeedback = (message) => {
             if(error) {
               return { error }
             } else {
-                console.log(body)
-              standings = JSON.parse(body).standing.slice(0, 4);
+                console.log("body =>>>", typeof(body))
+              standings = JSON.s(body).standing.slice(0, 4);
                 responseFeedback = {
                     "attachment": {
                         "type": "template",
