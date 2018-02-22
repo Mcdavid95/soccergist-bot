@@ -59,7 +59,7 @@ export const handleFeedback = (message) => {
             .then((response) => {
                 console.log("went so well", response)
                 if(response) {
-                    standings = JSON.parse(response.data).standing.slice(0, 4);
+                    standings = response.data.standing.slice(0, 4);
                         responseFeedback = {
                             "attachment": {
                                 "type": "template",
