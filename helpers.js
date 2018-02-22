@@ -54,8 +54,7 @@ export const handleFeedback = (message) => {
       };
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
-      switch(message.postback.payload) {
-        case 'league table':
+      if(message.postback.payload === 'league table') {
           request({
             uri: 'http://api.football-data.org/v1/competitions/445/leagueTable',
             method: 'GET',
@@ -77,12 +76,11 @@ export const handleFeedback = (message) => {
             }
           })
           console.log("help ===", responseFeedback, standings)
-          break;
-        default:
-        responseFeedback = {
-            text: `${message.postback.payload} - is coming soon.`
-        };
-      }
+        } else {
+            responseFeedback = {
+                text: `${message.postback.payload} - is coming soon.`
+            };
+        }
   }
   return responseFeedback;
 };
