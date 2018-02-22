@@ -69,6 +69,7 @@ export const handleFeedback = (message) => {
                           }
                       }
                   }
+                  console.log(responseFeedback)
                   return responseFeedback
             })
             .catch((error) => {
