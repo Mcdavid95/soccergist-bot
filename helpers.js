@@ -68,7 +68,8 @@ export const handleFeedback = (message) => {
                             "elements": handleTeamList(standings)
                           }
                       }
-                  }
+                  };
+                  console.log("I got here first", responseFeedback)
             })
             .catch((error) => {
                 return { error }
