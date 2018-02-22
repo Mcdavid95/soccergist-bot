@@ -76,7 +76,7 @@ export const handleFeedback = (message) => {
                 }
             }
           })
-          console.log(responseFeedback)
+          console.log("help ===", responseFeedback, standings)
           break;
         default:
         responseFeedback = {
