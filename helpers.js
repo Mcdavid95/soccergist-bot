@@ -53,6 +53,7 @@ export const handleFeedback = (message) => {
           }
       };
   } else if ("postback" in message) {
+      console.log("payload =>>>", message.postback.payload)
       switch(message.postback.payload) {
         case 'league table':
           request({
@@ -62,9 +63,7 @@ export const handleFeedback = (message) => {
             if(error) {
               return { error }
             } else {
-                console.log("body =>>>", typeof(body))
               standings = JSON.parse(body).standing.slice(0, 4);
-              console.log("standing =>>>", typeof(standings))
                 responseFeedback = {
                     "attachment": {
                         "type": "template",
