@@ -57,6 +57,7 @@ export const handleFeedback = (message) => {
       console.log("payload =>>>", message.postback.payload)
         axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
             .then((response) => {
+                console.log("went so well", response)
                 if(response) {
                     standings = JSON.parse(response.data).standing.slice(0, 4);
                         responseFeedback = {
@@ -73,7 +74,7 @@ export const handleFeedback = (message) => {
                 }
             })
             .catch((error) => {
-                console.log("went so meeeeeeh")
+                console.log("went so meeeeeeh", error)
                 return { error }
             });
     }
