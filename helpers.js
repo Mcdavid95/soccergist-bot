@@ -24,7 +24,7 @@ const handleTeamList = (teams) => {
 
 // handle message type
 export const handleFeedback = (message) => {
-  let responseFeedback, standings, teams;
+  var responseFeedback, standings, teams;
   if("message" in message) {
       responseFeedback = {
           "attachment":{
