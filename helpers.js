@@ -53,33 +53,27 @@ export const handleFeedback = (message) => {
               }
           }
       };
-  } else if ("postback" in message) {
+  } else if ("postback" in message && message.postback.payload === 'league table') {
       console.log("payload =>>>", message.postback.payload)
-      if(message.postback.payload === 'league table') {
-          axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+        axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
             .then((response) => {
                 standings = JSON.parse(response.data).standing.slice(0, 4);
-                  responseFeedback = {
-                      "attachment": {
-                          "type": "template",
-                          "payload": {
+                    responseFeedback = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
                             "template_type": "list",
                             "top_element_style": "compact",
                             "elements": handleTeamList(standings)
-                          }
-                      }
-                  };
-                  console.log("I got here first", responseFeedback)
+                            }
+                        }
+                    };
+                    console.log("I got here first", responseFeedback)
             })
             .catch((error) => {
                 return { error }
             });
-        } else {
-            responseFeedback = {
-                text: `${message.postback.payload} - is coming soon.`
-            };
-        }
-  }
+    }
   console.log("I got here", responseFeedback)
   return responseFeedback;
 };
