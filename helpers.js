@@ -80,13 +80,13 @@ export const handleFeedback = (message) => {
       };
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
-    //   if(message.postback.payload === 'league table') {
+      if(message.postback.payload === 'league table') {
           return showTeams();
-        // } else {
-        //    return {
-        //         text: `${message.postback.payload} - is coming soon.`
-        //     };
-        // }
+        } else {
+           return {
+                text: `${message.postback.payload} - is coming soon.`
+            };
+        }
   }
 };
 
