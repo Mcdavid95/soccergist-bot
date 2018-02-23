@@ -27,7 +27,7 @@ const showTeams = () => {
     const response = axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
     // ((response) => {
     //     if(response) {
-            const standings = response.data.standing.slice(0, 4);
+            const standings = response.response.data.standing.slice(0, 4);
             return {
                 "attachment": {
                     "type": "template",
