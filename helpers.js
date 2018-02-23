@@ -25,17 +25,21 @@ const handleTeamList = (teams) => {
 const showTeams = () => {
     return axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
     .then((response) => {
-        const standings = response.data.standing.slice(0, 4);
-          return {
-              "attachment": {
-                  "type": "template",
-                  "payload": {
-                    "template_type": "list",
-                    "top_element_style": "compact",
-                    "elements": handleTeamList(standings)
-                  }
-              }
-          }
+        if(response) {
+            const standings = response.data.standing.slice(0, 4);
+            return {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "compact",
+                        "elements": handleTeamList(standings)
+                    }
+                }
+            }
+        } else {
+            console.log("something went wrong")
+        }
     })
     .catch((error) => {
         console.log("error error error", error)
