@@ -36,7 +36,6 @@ const showTeams = () => {
                   }
               }
           }
-          console.log(responseFeedback);
     })
     .catch((error) => {
         console.log(error)
@@ -85,6 +84,7 @@ export const handleFeedback = (message) => {
             };
         }
   }
+  console.log(responseFeedback)
   return responseFeedback;
 };
 
