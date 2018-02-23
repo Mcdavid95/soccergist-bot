@@ -22,27 +22,29 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
-const handleTeam = obj  =>{
-    return obj;
+const handleTeam = standing =>{
+    return {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "list",
+                "top_element_style": "compact",
+                "elements": handleTeamList(standings)
+            }
+        }
+    };
 } 
 
-const showTeams = (handleTeam, handleTeamList) => {
+const url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
+
+const showTeams = (url, handleTeam) => {
     request({
-        uri: 'http://api.football-data.org/v1/competitions/445/leagueTable',
+        uri: url,
         method: 'GET'
       }, (error, response, body) => {
         if (!error) {
             const standings = JSON.parse(body).standing.slice(0, 4);
-            handleTeam({
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "list",
-                        "top_element_style": "compact",
-                        "elements": handleTeamList(standings)
-                    }
-                }
-            })
+            handleTeam(standings)
             console.log("Successfully sent message");
         } else {
           console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
@@ -110,7 +112,7 @@ export const handleFeedback = (message) => {
         //       return list
         //   })
         //   console.log("bababaabay", teams)
-          return showTeams(handleTeam, handleTeamList);
+          return showTeams(url, handleTeam);
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
