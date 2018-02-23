@@ -22,6 +22,28 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
+const showTeams = () => {
+    axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+    .then((response) => {
+        standings = response.data.standing.slice(0, 4);
+          return {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                    "template_type": "list",
+                    "top_element_style": "compact",
+                    "elements": handleTeamList(standings)
+                  }
+              }
+          }
+          console.log(responseFeedback);
+    })
+    .catch((error) => {
+        console.log(error)
+        return { error }
+    });
+}
+
 // handle message type
 export const handleFeedback = (message) => {
   let responseFeedback, standings, teams;
@@ -56,37 +78,18 @@ export const handleFeedback = (message) => {
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
       if(message.postback.payload === 'league table') {
-          axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
-            .then((response) => {
-                standings = response.data.standing.slice(0, 4);
-                  responseFeedback = {
-                      "attachment": {
-                          "type": "template",
-                          "payload": {
-                            "template_type": "list",
-                            "top_element_style": "compact",
-                            "elements": handleTeamList(standings)
-                          }
-                      }
-                  }
-                  console.log(responseFeedback)
-                  return responseFeedback
-            })
-            .catch((error) => {
-                console.log(error)
-                return { error }
-            });
+          responseFeedback = showTeams();
         } else {
             responseFeedback = {
                 text: `${message.postback.payload} - is coming soon.`
             };
         }
-    return responseFeedback
   }
   return responseFeedback;
 };
 
 export const sendTextMessage = (recipientId, messageFeedback) => {
+    console.log(messageFeedback)
     // we package the bot response in FB required format
     const messageData = {
       "recipient": {
