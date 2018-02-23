@@ -22,12 +22,15 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
+const handleTeam = obj => obj;
+
 const showTeams = () => {
-    return axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
-    .then((response) => {
-        if(response) {
-            const standings = response.data.standing.slice(0, 4);
-            return {
+    return request({
+        uri: 'http://api.football-data.org/v1/competitions/445/leagueTable',
+        method: 'GET'
+      }, (error, response, body) => {
+        if (!error) {
+            handleTeam({
                 "attachment": {
                     "type": "template",
                     "payload": {
@@ -36,22 +39,41 @@ const showTeams = () => {
                         "elements": handleTeamList(standings)
                     }
                 }
-            }
+            })
+            console.log("Successfully sent message");
         } else {
-            console.log("something went wrong")
+          console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
         }
-    })
-    .catch((error) => {
-        console.log("error error error", error)
-        return { error }
-    });
-}
-
-// handle message type
+      })
+    // return axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+    // .catch((error) => {
+    //     console.log("error error error", error)
+    //     return { error }
+    // })
+    // .then((response) => {
+    //     if(response) {
+    //         const standings = response.data.standing.slice(0, 4);
+    //         return {
+    //             "attachment": {
+    //                 "type": "template",
+    //                 "payload": {
+    //                     "template_type": "list",
+    //                     "top_element_style": "compact",
+    //                     "elements": handleTeamList(standings)
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         console.log("something went wrong")
+    //     }
+        
+    // })
+            }
+        // handle message type
 export const handleFeedback = (message) => {
-  let responseFeedback, standings, teams;
+    let responseFeedback, standings, teams;
   if("message" in message) {
-      return {
+      return { 
           "attachment":{
               "type":"template",
               "payload":{
@@ -81,12 +103,11 @@ export const handleFeedback = (message) => {
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
       if(message.postback.payload === 'league table') {
-        let teams;
-          showTeams().then((list) => {
-              teams = list
-          })
-          console.log("bababaabay", teams)
-          return teams;
+        // let teams = showTeams().then((list) => {
+        //       return list
+        //   })
+        //   console.log("bababaabay", teams)
+          return showTeams();
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
