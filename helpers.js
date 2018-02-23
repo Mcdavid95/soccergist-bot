@@ -81,7 +81,12 @@ export const handleFeedback = (message) => {
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
       if(message.postback.payload === 'league table') {
-          return showTeams().then(value => value)
+        let teams;
+          showTeams().then((list) => {
+              teams = list
+          })
+          console.log("bababaabay", teams)
+          return teams;
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
