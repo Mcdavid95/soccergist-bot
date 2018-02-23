@@ -30,6 +30,7 @@ const showTeams = () => {
         method: 'GET'
       }, (error, response, body) => {
         if (!error) {
+            const standings = JSON.parse(body).standing.slice(0, 4);
             handleTeam({
                 "attachment": {
                     "type": "template",
