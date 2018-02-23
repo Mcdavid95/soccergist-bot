@@ -29,7 +29,7 @@ const handleTeam = standing =>{
             "payload": {
                 "template_type": "list",
                 "top_element_style": "compact",
-                "elements": handleTeamList(standings)
+                "elements": handleTeamList(standing)
             }
         }
     };
