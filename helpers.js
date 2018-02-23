@@ -22,7 +22,7 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
-const handleTeam = standing =>{
+const handleTeam = standing => {
     return {
         "attachment": {
             "type": "template",
@@ -112,7 +112,7 @@ export const handleFeedback = (message) => {
         //       return list
         //   })
         //   console.log("bababaabay", teams)
-          return showTeams(url, handleTeam);
+          showTeams(url, handleTeam);
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
