@@ -22,57 +22,32 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
-const handleTeam = standing => {
-    return {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "list",
-                "top_element_style": "compact",
-                "elements": handleTeamList(standing)
-            }
-        }
-    };
-} 
-
-const url = 'http://api.football-data.org/v1/competitions/445/leagueTable'
-
-const showTeams = (url, handleTeam) => {
-    request({
-        uri: url,
-        method: 'GET'
-      }, (error, response, body) => {
-        if (!error) {
-            const standings = JSON.parse(body).standing.slice(0, 4);
-            handleTeam(standings)
-            console.log("Successfully sent message");
-        } else {
-          console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-        }
-      })
-    // return axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
-    // .catch((error) => {
-    //     console.log("error error error", error)
-    //     return { error }
-    // })
-    // .then((response) => {
+async const showTeams = () => {
+    try {
+    const response = await axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+    // ((response) => {
     //     if(response) {
-    //         const standings = response.data.standing.slice(0, 4);
-    //         return {
-    //             "attachment": {
-    //                 "type": "template",
-    //                 "payload": {
-    //                     "template_type": "list",
-    //                     "top_element_style": "compact",
-    //                     "elements": handleTeamList(standings)
-    //                 }
-    //             }
-    //         }
-    //     } else {
-    //         console.log("something went wrong")
-    //     }
+            const standings = response.data.standing.slice(0, 4);
+            return {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "compact",
+                        "elements": handleTeamList(standings)
+                    }
+                }
+            }
+        // } else {
+        //     console.log("something went wrong")
+        // }
         
     // })
+}
+    catch(error) {
+        console.log("error error error", error)
+        return { error }
+    }
             }
         // handle message type
 export const handleFeedback = (message) => {
@@ -112,7 +87,7 @@ export const handleFeedback = (message) => {
         //       return list
         //   })
         //   console.log("bababaabay", teams)
-          showTeams(url, handleTeam);
+          return showTeams();
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
