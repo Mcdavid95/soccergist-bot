@@ -25,7 +25,7 @@ const handleTeamList = (teams) => {
 const handleTeam = obj => obj;
 
 const showTeams = () => {
-    return request({
+    request({
         uri: 'http://api.football-data.org/v1/competitions/445/leagueTable',
         method: 'GET'
       }, (error, response, body) => {
