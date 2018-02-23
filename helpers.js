@@ -77,15 +77,13 @@ export const handleFeedback = (message) => {
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
       if(message.postback.payload === 'league table') {
-          responseFeedback = showTeams();
+          return showTeams();
         } else {
-            responseFeedback = {
+           return {
                 text: `${message.postback.payload} - is coming soon.`
             };
         }
   }
-  console.log(responseFeedback)
-  return responseFeedback;
 };
 
 export const sendTextMessage = (recipientId, messageFeedback) => {
