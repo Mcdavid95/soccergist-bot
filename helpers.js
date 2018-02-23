@@ -47,7 +47,7 @@ const showTeams = () => {
 export const handleFeedback = (message) => {
   let responseFeedback, standings, teams;
   if("message" in message) {
-      responseFeedback = {
+      return {
           "attachment":{
               "type":"template",
               "payload":{
