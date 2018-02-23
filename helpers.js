@@ -22,9 +22,11 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
-const handleTeam = obj => obj;
+const handleTeam = obj  =>{
+    return obj;
+} 
 
-const showTeams = () => {
+const showTeams = (handleTeam, handleTeamList) => {
     request({
         uri: 'http://api.football-data.org/v1/competitions/445/leagueTable',
         method: 'GET'
@@ -108,7 +110,7 @@ export const handleFeedback = (message) => {
         //       return list
         //   })
         //   console.log("bababaabay", teams)
-          return showTeams();
+          return showTeams(handleTeam, handleTeamList);
         } else {
            return {
                 text: `${message.postback.payload} - is coming soon.`
