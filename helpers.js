@@ -22,33 +22,33 @@ const handleTeamList = (teams) => {
     return teamList
 }
 
-const showTeams = () => {
-    try {
-    const response = axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
-    // ((response) => {
-    //     if(response) {
-            const standings = response.response.data.standing.slice(0, 4);
-            return {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "list",
-                        "top_element_style": "compact",
-                        "elements": handleTeamList(standings)
-                    }
-                }
-            }
-        // } else {
-        //     console.log("something went wrong")
-        // }
+// const showTeams = () => {
+//     try {
+//     const response = axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+//     // ((response) => {
+//     //     if(response) {
+//             const standings = response.response.data.standing.slice(0, 4);
+//             return {
+//                 "attachment": {
+//                     "type": "template",
+//                     "payload": {
+//                         "template_type": "list",
+//                         "top_element_style": "compact",
+//                         "elements": handleTeamList(standings)
+//                     }
+//                 }
+//             }
+//         // } else {
+//         //     console.log("something went wrong")
+//         // }
         
-    // })
-}
-    catch(error) {
-        console.log("error error error", error)
-        return { error }
-    }
-            }
+//     // })
+// }
+//     catch(error) {
+//         console.log("error error error", error)
+//         return { error }
+//     }
+//             }
         // handle message type
 export const handleFeedback = (message) => {
     let responseFeedback, standings, teams;
@@ -82,18 +82,28 @@ export const handleFeedback = (message) => {
       };
   } else if ("postback" in message) {
       console.log("payload =>>>", message.postback.payload)
-      if(message.postback.payload === 'league table') {
-        // let teams = showTeams().then((list) => {
-        //       return list
-        //   })
-        //   console.log("bababaabay", teams)
-          return showTeams();
-        } else {
-           return {
-                text: `${message.postback.payload} - is coming soon.`
-            };
-        }
-  }
+       fetch('http://api.football-data.org/v1/competitions/445/leagueTable')
+            .then((response) => {
+                standings = JSON.parse(response.data).standing.slice(0, 4);
+                    responseFeedback = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                            "template_type": "list",
+                            "top_element_style": "compact",
+                            "elements": handleTeamList(standings)
+                            }
+                        }
+                    };
+                    console.log("I got here first", responseFeedback)
+                    return responseFeedback; 
+            })
+            .catch((error) => {
+                return { error }
+            });
+    }
+  console.log("I got here", responseFeedback)
+  return responseFeedback;
 };
 
 export const sendTextMessage = (recipientId, messageFeedback) => {
