@@ -58,36 +58,35 @@ export const handleFeedback = message => {
     };
   } else if ("postback" in message) {
     console.log("payload =>>>", message.postback.payload);
-    request(
-      "http://api.football-data.org/v1/competitions/445/leagueTable",
-      function(error, response, body) {
-        if (error) {
-          console.log("error:", error); // Print the error if one occurred
-        } else {
-          console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
-          console.log("body:", JSON.parse(body));
-        }
-      }
-    );
-    //    return axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
-    //         .then((response) => {
-    //             standings = JSON.parse(response.data).standing.slice(0, 4);
-    //                 responseFeedback = {
-    //                     "attachment": {
-    //                         "type": "template",
-    //                         "payload": {
-    //                         "template_type": "list",
-    //                         "top_element_style": "compact",
-    //                         "elements": handleTeamList(standings)
-    //                         }
-    //                     }
-    //                 };
-    //                 console.log("I got here first", responseFeedback)
-    //                 return responseFeedback;
-    //         })
-    //         .catch((error) => {
-    //             return { error }
-    //         });
+    // request(
+    //   "http://api.football-data.org/v1/competitions/445/leagueTable",
+    //   function(error, response, body) {
+    //     if (error) {
+    //       console.log("error:", error); // Print the error if one occurred
+    //     } else {
+    //       console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
+    //       console.log("body:", JSON.parse(body));
+    //     }
+    //   }
+    // );
+       axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
+            .then((response) => {
+                standings = JSON.parse(response.data).standing.slice(0, 4);
+                    responseFeedback = {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                            "template_type": "list",
+                            "top_element_style": "compact",
+                            "elements": handleTeamList(standings)
+                            }
+                        }
+                    };
+                    console.log("I got here first", responseFeedback)
+            })
+            .catch((error) => {
+                return { error }
+            });
   }
   console.log("I got here", responseFeedback);
   return responseFeedback;
