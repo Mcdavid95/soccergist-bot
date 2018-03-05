@@ -77,17 +77,17 @@ export const handleFeedback = (message) => {
         console.log("payload =>>>", message.postback.payload);
         getTable((err, response, body) => {
           standings = body.standing.slice(0, 4);
-          console.log(standings )
           feedback = {
             "attachment": {
-                "type": "template",
-                "payload": {
+              "type": "template",
+              "payload": {
                 "template_type": "list",
                 "top_element_style": "compact",
                 "elements": handleTeamList(standings)
-                }
+              }
             }
-        }; 
+          }; 
+          console.log(feedback)
         })
         return feedback
       } else {
