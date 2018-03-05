@@ -31,7 +31,7 @@ export const handleTeamList = teams => {
 export const getTable = body => {
   const standings = body.standing.slice(0, 4);
   console.log("I got here first", standings);
-  return {
+  const table = {
     attachment: {
       type: "template",
       payload: {
@@ -41,6 +41,8 @@ export const getTable = body => {
       }
     }
   };
+  console.log(table)
+  return table
 };
 // handle message type
 export const handleFeedback = (message, done) => {
