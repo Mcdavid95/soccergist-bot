@@ -8,7 +8,7 @@ export const handleTeamList = (teams) => {
     table;
   teams.forEach(team => {
     table = {
-      tiitle: `Position ${team.position}: ${team.teamName} `,
+      title: `Position ${team.position}: ${team.teamName} `,
       subtitle: `Matches played: ${team.playedGames} \n Points: ${
         team.points
       } `,
