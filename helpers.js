@@ -75,7 +75,7 @@ export const handleFeedback = (message) => {
   } else if ("postback" in message) {
       if (message.postback.payload === 'league table') {
         console.log("payload =>>>", message.postback.payload);
-        getTable((err, response, body) => {
+        return getTable((err, response, body) => {
           standings = body.standing.slice(0, 4);
           feedback = {
             "attachment": {
@@ -88,8 +88,8 @@ export const handleFeedback = (message) => {
             }
           }; 
           console.log(feedback)
-          return feedback
         })
+        return feedback
         //  axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
         //       .then((response) => {
         //           standings = JSON.parse(response.data).standing.slice(0, 4);
