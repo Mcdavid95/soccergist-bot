@@ -29,7 +29,7 @@ export const handleTeamList = teams => {
 };
 
 export const getTable = body => {
-  const standings = JSON.parse(response.data).standing.slice(0, 4);
+  const standings = JSON.parse(body).standing.slice(0, 4);
   console.log("I got here first", standings);
   return {
     attachment: {
