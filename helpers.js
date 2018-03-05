@@ -41,18 +41,6 @@ export const getTable = body => {
       }
     }
   };
-  // request(
-  //   "http://api.football-data.org/v1/competitions/445/leagueTable",
-  //   function(error, response, body) {
-  //     if (error) {
-  //       console.log("error:", error); // Print the error if one occurred
-  //       return done(err);
-  //     } else {
-  //       console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
-  //       return done(null, response, JSON.parse(body));
-  //     }
-  //   }
-  // );
 };
 // handle message type
 export const handleFeedback = (message, done) => {
