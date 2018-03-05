@@ -76,8 +76,8 @@ export const handleFeedback = (message) => {
       if (message.postback.payload === 'league table') {
         console.log("payload =>>>", message.postback.payload);
         getTable((err, response, body) => {
-          console.log(body)
           standings = body.standing.slice(0, 4);
+          console.log(standings )
           feedback = {
             "attachment": {
                 "type": "template",
