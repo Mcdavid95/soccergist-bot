@@ -87,9 +87,9 @@ export const handleFeedback = (message) => {
               }
             }
           }; 
+          console.log(feedback)
+          return feedback
         })
-        console.log(feedback)
-        return feedback
         //  axios.get('http://api.football-data.org/v1/competitions/445/leagueTable')
         //       .then((response) => {
         //           standings = JSON.parse(response.data).standing.slice(0, 4);
