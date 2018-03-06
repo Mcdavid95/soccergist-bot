@@ -46,7 +46,7 @@ const getTable = (body, sendMessage) => {
 // handle message type
 const handleFeedback = (message, parseMessage, sendMessage) => {
   if ("message" in message) {
-    return {
+    const postback = {
       attachment: {
         type: "template",
         payload: {
@@ -72,6 +72,7 @@ const handleFeedback = (message, parseMessage, sendMessage) => {
         }
       }
     };
+    return sendMessage(postback)
   } else if ("postback" in message) {
     if (message.postback.payload === "league table") {
       // console.log("payload =>>>", message.postback.payload);
@@ -88,9 +89,10 @@ const handleFeedback = (message, parseMessage, sendMessage) => {
         }
       );
     } else {
-      return {
+      const responseFeedback =  {
         text: `${message.postback.payload} coming soon`
       };
+      return sendMessage(responseFeedback);
     }
   }
 };
