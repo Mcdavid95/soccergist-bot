@@ -2,17 +2,32 @@ const axios = require("axios");
 const request = require("request");
 
 let feedback, standings;
+
+// handle team crest
+const handleTeamCrest = (teamName, teamList) => {
+  if(teamName in teamList) {
+    return teamList[teamName]
+  } else {
+    console.error('an error occoured');
+  }
+}
 //handle team list
 const handleTeamList = teams => {
   let teamList = [],
-    table;
+  table;
+  let teamUrl = {
+    'Manchester City FC': 'http://res.cloudinary.com/mc-cloud/image/upload/v1520512537/manchester-city-logo-vector_viievq.png',
+    'Manchester United FC': 'http://res.cloudinary.com/mc-cloud/image/upload/v1520512028/manchester-united-logo-vector_l2nrfj.png',
+    'Liverpool FC': 'http://res.cloudinary.com/mc-cloud/image/upload/v1520512476/liverpool-logo-vector_z0hget.png',
+    'Tottenham Hotspur FC': 'http://res.cloudinary.com/mc-cloud/image/upload/v1520512878/tottenham-hotspur-fc-logo-vector_ogfnex.png'
+  }
   teams.forEach(team => {
     table = {
       title: `Position ${team.position}: ${team.teamName} `,
       subtitle: `Matches played: ${team.playedGames} \n Points: ${
         team.points
       } `,
-      image_url: team.crestURI,
+      image_url: handleTeamCrest(team.teamName, teamUrl),
       buttons: [
         {
           title: "more details",
